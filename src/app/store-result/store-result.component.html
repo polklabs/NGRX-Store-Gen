@@ -6,31 +6,39 @@
         <h4>Place the model file into the folder<br>'src/app/store/model'</h4>
 
         <div *ngIf="dataParser !== null">
-            <h3 class="no-bottom-margin">Add the following lines to <strong>data-parser.service.ts</strong> parse method</h3>
+            <h4 class="no-bottom-margin">Add the following imports to <mark>data-parser.service.ts</mark> action imports</h4>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="dataParserActionImport">Copy</button>
+            <prism-block [code]="dataParserActionImport" [language]="'typescript'"></prism-block>
+
+            <h4 class="no-bottom-margin">Add the following imports to <mark>data-parser.service.ts</mark> reducer imports</h4>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="dataParserReducerImport">Copy</button>
+            <prism-block [code]="dataParserReducerImport" [language]="'typescript'"></prism-block>
+
+            <h4 class="no-bottom-margin">Add the following lines to <mark>data-parser.service.ts</mark> parse method</h4>
             <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="dataParser">Copy</button>
             <prism-block [code]="dataParser" [language]="'typescript'"></prism-block>
         </div>
 
         <div *ngIf="reducerIndex1 !== null">
-            <h3 class="no-bottom-margin">Add the following line to <strong>reducers.index.ts</strong> {{entity?'Entity':'DataTable'}}State interface</h3>
+            <h4 class="no-bottom-margin">Add the following line to <mark>reducers.index.ts</mark> {{entity?'Entity':'DataTable'}}State interface</h4>
             <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="reducerIndex1">Copy</button>
             <prism-block [code]="reducerIndex1" [language]="'typescript'"></prism-block>
         </div>
 
         <div *ngIf="reducerIndex2 !== null">
-            <h3 class="no-bottom-margin">Add the following line to <strong>reducers.index.ts</strong> {{entity?'entity':'dataTable'}}Reducers const</h3>
+            <h4 class="no-bottom-margin">Add the following line to <mark>reducers.index.ts</mark> {{entity?'entity':'dataTable'}}Reducers const</h4>
             <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="reducerIndex2">Copy</button>
             <prism-block [code]="reducerIndex2" [language]="'typescript'"></prism-block>
         </div>
 
         <div *ngIf="effectsIndex !== null">
-            <h3 class="no-bottom-margin">Add the following line to <strong>effects.index.ts</strong> effects const</h3>
+            <h4 class="no-bottom-margin">Add the following line to <mark>effects.index.ts</mark> effects const</h4>
             <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="effectsIndex">Copy</button>
             <prism-block [code]="effectsIndex" [language]="'typescript'"></prism-block>
         </div>
 
         <div *ngIf="storeModule !== null">
-            <h3 class="no-bottom-margin">Add the following line to <strong>store.module.ts</strong> providers array</h3>
+            <h4 class="no-bottom-margin">Add the following line to <mark>store.module.ts</mark> providers array</h4>
             <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="storeModule">Copy</button>
             <prism-block [code]="storeModule" [language]="'typescript'"></prism-block>
         </div>

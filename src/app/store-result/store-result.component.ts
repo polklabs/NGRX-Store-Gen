@@ -34,6 +34,8 @@ export class StoreResultComponent implements OnInit, OnChanges {
   model: string = ''; 
 
   dataParser: string = '';
+  dataParserActionImport: string = '';
+  dataParserReducerImport: string = '';
   effectsIndex: string = '';
   reducerIndex1: string = '';
   reducerIndex2: string = '';
@@ -54,6 +56,8 @@ export class StoreResultComponent implements OnInit, OnChanges {
     this.service = null;
     this.model = null;
     this.dataParser = null;
+    this.dataParserActionImport = null;
+    this.dataParserReducerImport = null;
     this.effectsIndex = null; 
     this.reducerIndex1 = null;
     this.reducerIndex2 = null;
@@ -104,23 +108,23 @@ export class StoreResultComponent implements OnInit, OnChanges {
     let snakeCase = this.camelToUnderscore(upperName);
     this.index =
       `import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ${fullNameUpper}Adapter } from './${snakeCase}.reducer';
+import { ${fullNameLower}Adapter } from './${snakeCase}.reducer';
 import { EntityState } from '../../reducers.index';
 
 export const selectEntityModuleState = createFeatureSelector<EntityState>('entities');
-export const get${upperName}State = createSelector( selectEntityModuleState, (s: EntityState) => s.${fullNameUpper});
+export const get${upperName}State = createSelector( selectEntityModuleState, (s: EntityState) => s.${fullNameLower});
 export const {
     selectIds: getIds,
     selectEntities: getEntities,
     selectAll: getAll,
     selectTotal: getTotal,
-} = ${fullNameUpper}Adapter.getSelectors(get${upperName}State);
+} = ${fullNameLower}Adapter.getSelectors(get${upperName}State);
 
-export const get${upperName}ById = (id: string) => createSelector(getAll, (entities) => entities[id]);
+export const get${upperName}ById = (id: string) => createSelector(getEntities, (entities) => entities[id]);
 
 /**
  * Add Custom selectors here
- * /
+ */
 `;
   }
 
@@ -386,6 +390,8 @@ export class ${upperName}Effects {
     this.dataParser = `if (payload.${fullNameUpper}) {
   this.${fullNameLower}Store.dispatch(new ${fullNameLower}Actions.${this.addAll?'AddAll':'UpsertMany'}(this.parse${this.entity?'Entity':'DataTable'}(payload.${fullNameUpper})));
 }`;
+    this.dataParserActionImport = `import * as ${fullNameLower}Actions from './${this.entity?'entity':'data-table'}/${snakeCase}/${snakeCase}.actions';`;
+    this.dataParserReducerImport = `import { ${fullNameUpper}State } from './${this.entity?'entity':'data-table'}/${snakeCase}/${snakeCase}.reducer';`
     if(!this.load && !this.save && !this.delete){
       this.service = '//No service needed';
       return;

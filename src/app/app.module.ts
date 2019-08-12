@@ -12,7 +12,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import 'prismjs/prism';
 import 'prismjs/components/prism-typescript';
 
-import { PrismComponent } from 'angular-prism';
+import { PrismComponent } from './angular-prism/angular-prism';
 
 @NgModule({
   declarations: [
