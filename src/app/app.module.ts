@@ -8,19 +8,26 @@ import { StoreFormComponent } from './store-form/store-form.component';
 import { StoreResultComponent } from './store-result/store-result.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { FirstLetter } from './pipe/titleCase.pipe';
+import { ClipboardModule } from 'ngx-clipboard';
+import 'prismjs/prism';
+import 'prismjs/components/prism-typescript';
+
+import { PrismComponent } from 'angular-prism';
 
 @NgModule({
   declarations: [
     AppComponent,
     StoreFormComponent,
     StoreResultComponent,
-    FirstLetter
+    FirstLetter,
+    PrismComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ClipboardModule
   ],
   providers: [FirstLetter],
   bootstrap: [AppComponent]

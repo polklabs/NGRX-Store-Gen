@@ -1,42 +1,63 @@
 <mat-tab-group>
     <mat-tab label="References">
         
-        <h3>Place the index, actions, reducer, effects and service files into the folder <br>'src/app/store/{{entity?'entity':'data-table'}}/{{camelToUnderscore(name)}}'</h3>
+        <h4>Place the index, actions, reducer, effects and service files into the folder <br>'src/app/store/{{entity?'entity':'data-table'}}/{{camelToUnderscore(name)}}'</h4>
 
-        <h3>Place the model file into the folder<br>'src/app/store/model'</h3>
+        <h4>Place the model file into the folder<br>'src/app/store/model'</h4>
 
-        <h3>Add the following lines to <strong>data-parser.service.ts</strong> parse method</h3>
-        <p class="light-gray">{{dataParser}}</p>
+        <div *ngIf="dataParser !== null">
+            <h3 class="no-bottom-margin">Add the following lines to <strong>data-parser.service.ts</strong> parse method</h3>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="dataParser">Copy</button>
+            <prism-block [code]="dataParser" [language]="'typescript'"></prism-block>
+        </div>
 
-        <h3>Add the following line to <strong>reducers.index.ts</strong> {{entity?'Entity':'DataTable'}}State interface</h3>
-        <p class="light-gray">{{reducerIndex1}}</p>
+        <div *ngIf="reducerIndex1 !== null">
+            <h3 class="no-bottom-margin">Add the following line to <strong>reducers.index.ts</strong> {{entity?'Entity':'DataTable'}}State interface</h3>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="reducerIndex1">Copy</button>
+            <prism-block [code]="reducerIndex1" [language]="'typescript'"></prism-block>
+        </div>
 
-        <h3>Add the following line to <strong>reducers.index.ts</strong> {{entity?'entity':'dataTable'}}Reducers const</h3>
-        <p class="light-gray">{{reducerIndex2}}</p>
+        <div *ngIf="reducerIndex2 !== null">
+            <h3 class="no-bottom-margin">Add the following line to <strong>reducers.index.ts</strong> {{entity?'entity':'dataTable'}}Reducers const</h3>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="reducerIndex2">Copy</button>
+            <prism-block [code]="reducerIndex2" [language]="'typescript'"></prism-block>
+        </div>
 
-        <h3>Add the following line to <strong>effects.index.ts</strong> effects const</h3>
-        <p class="light-gray">{{effectsIndex}}</p>
+        <div *ngIf="effectsIndex !== null">
+            <h3 class="no-bottom-margin">Add the following line to <strong>effects.index.ts</strong> effects const</h3>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="effectsIndex">Copy</button>
+            <prism-block [code]="effectsIndex" [language]="'typescript'"></prism-block>
+        </div>
 
-        <h3>Add the following line to <strong>store.module.ts</strong> providers array</h3>
-        <p class="light-gray">{{storeModule}}</p>
+        <div *ngIf="storeModule !== null">
+            <h3 class="no-bottom-margin">Add the following line to <strong>store.module.ts</strong> providers array</h3>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="storeModule">Copy</button>
+            <prism-block [code]="storeModule" [language]="'typescript'"></prism-block>
+        </div>
 
     </mat-tab>
-    <mat-tab label="{{actionsTitle}}">
-        {{actions}}
+    <mat-tab label="{{actionsTitle}}" *ngIf="actions!==null">
+        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="actions">Copy</button>
+        <prism-block [code]="actions" [language]="'typescript'"></prism-block>
     </mat-tab>
-    <mat-tab label="{{reducerTitle}}">
-        {{reducer}}
+    <mat-tab label="{{reducerTitle}}" *ngIf="reducer!==null">
+        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="reducer">Copy</button>
+        <prism-block [code]="reducer" [language]="'typescript'"></prism-block>
     </mat-tab>
-    <mat-tab label="{{indexTitle}}">
-        {{index}}
+    <mat-tab label="{{indexTitle}}" *ngIf="index!==null">
+        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="index">Copy</button>
+        <prism-block [code]="index" [language]="'typescript'"></prism-block>
     </mat-tab>
-    <mat-tab label="{{effectsTitle}}">
-        {{effects}}
+    <mat-tab label="{{effectsTitle}}" *ngIf="effects!==null">
+        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="effects">Copy</button>
+        <prism-block [code]="effects" [language]="'typescript'"></prism-block>
     </mat-tab>
-    <mat-tab label="{{serviceTitle}}">
-        {{service}}
+    <mat-tab label="{{serviceTitle}}" *ngIf="service!==null">
+        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="service">Copy</button>
+        <prism-block [code]="service" [language]="'typescript'"></prism-block>
     </mat-tab>
-    <mat-tab label="{{modelTitle}}">
-        {{model}}
+    <mat-tab label="{{modelTitle}}" *ngIf="model!==null">
+        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="model">Copy</button>
+        <prism-block [code]="model" [language]="'typescript'"></prism-block>
     </mat-tab>
 </mat-tab-group>
