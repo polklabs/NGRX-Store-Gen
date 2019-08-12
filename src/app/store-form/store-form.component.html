@@ -1,0 +1,37 @@
+<mat-tab-group>
+    <mat-tab label="Input">
+        <form fxLayout="column" fxFlex="none" fxLayoutGap="16px" style="height: 50em">
+                <h2>Enter the settings to be filled in on Output tab</h2>
+            
+                <mat-radio-group aria-label="Select store type" (change)="entity = $event.value" [value]="true">
+                    <mat-radio-button [value]="true">Entity</mat-radio-button>
+                    <mat-radio-button [value]="false">Data Table</mat-radio-button>
+                </mat-radio-group>
+            
+                <mat-form-field>
+                    <input matInput placeholder="{{entity ? 'Entity' : 'DataTable'}} Name" (change)="name = $event.target.value">
+                    <span matSuffix>{{entity ? 'Entity' : 'DataTable'}}</span>
+                </mat-form-field>
+            
+                <h3>Action for Data Parser</h3>
+                <mat-radio-group aria-label="Select store type" (change)="upsertMany = $event.value; addAll = !$event.value" [value]="true">
+                    <mat-radio-button [value]="true">upsertMany</mat-radio-button>
+                    <mat-radio-button [value]="false">addAll</mat-radio-button>
+                </mat-radio-group>
+            
+                <h3>Additional Actions</h3>
+                <mat-checkbox (change)="load = $event.checked">Load</mat-checkbox>
+                <mat-checkbox (change)="save = $event.checked">Save</mat-checkbox>
+                <mat-checkbox (change)="delete = $event.checked">Delete</mat-checkbox>
+            </form>
+    </mat-tab>
+    <mat-tab label="Output"><app-store-result 
+        [entity]="entity"
+        [name]="name"
+        [upsertMany]="upsertMany"
+        [addAll]="addAll"
+        [load]="load"
+        [save]="save"
+        [delete]="delete"
+        ></app-store-result></mat-tab>
+</mat-tab-group>

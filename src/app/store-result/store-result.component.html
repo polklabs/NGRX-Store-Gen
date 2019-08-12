@@ -1,0 +1,42 @@
+<mat-tab-group>
+    <mat-tab label="References">
+        
+        <h3>Place the index, actions, reducer, effects and service files into the folder <br>'src/app/store/{{entity?'entity':'data-table'}}/{{camelToUnderscore(name)}}'</h3>
+
+        <h3>Place the model file into the folder<br>'src/app/store/model'</h3>
+
+        <h3>Add the following lines to <strong>data-parser.service.ts</strong> parse method</h3>
+        <p class="light-gray">{{dataParser}}</p>
+
+        <h3>Add the following line to <strong>reducers.index.ts</strong> {{entity?'Entity':'DataTable'}}State interface</h3>
+        <p class="light-gray">{{reducerIndex1}}</p>
+
+        <h3>Add the following line to <strong>reducers.index.ts</strong> {{entity?'entity':'dataTable'}}Reducers const</h3>
+        <p class="light-gray">{{reducerIndex2}}</p>
+
+        <h3>Add the following line to <strong>effects.index.ts</strong> effects const</h3>
+        <p class="light-gray">{{effectsIndex}}</p>
+
+        <h3>Add the following line to <strong>store.module.ts</strong> providers array</h3>
+        <p class="light-gray">{{storeModule}}</p>
+
+    </mat-tab>
+    <mat-tab label="{{actionsTitle}}">
+        {{actions}}
+    </mat-tab>
+    <mat-tab label="{{reducerTitle}}">
+        {{reducer}}
+    </mat-tab>
+    <mat-tab label="{{indexTitle}}">
+        {{index}}
+    </mat-tab>
+    <mat-tab label="{{effectsTitle}}">
+        {{effects}}
+    </mat-tab>
+    <mat-tab label="{{serviceTitle}}">
+        {{service}}
+    </mat-tab>
+    <mat-tab label="{{modelTitle}}">
+        {{model}}
+    </mat-tab>
+</mat-tab-group>
