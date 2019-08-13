@@ -10,8 +10,9 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Build
 
-Run `ng build --prod --base-href "/NGRX-Store-Gen"` to build the project. The build artifacts will be stored in the `dist/` directory.
-Run `ngh` to deploy to github pages
+Run `ng build --prod --base-href "/NGRX-Store-Gen"` to build the project. The build artifacts will be stored in the `dist/` directory.  
+Run `ngh` to deploy to github pages  
+Shortcut - run `npm run pages`
 
 ## Disclaimer
 
