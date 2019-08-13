@@ -7,65 +7,83 @@
 
         <div *ngIf="dataParser !== null">
             <h4 class="no-bottom-margin">Add the following imports to <mark>data-parser.service.ts</mark> action imports</h4>
-            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="dataParserActionImport">Copy</button>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); dataParserActionImportCheck.checked = true;" [cbContent]="dataParserActionImport">Copy</button>
+            <mat-checkbox #dataParserActionImportCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
             <prism-block [code]="dataParserActionImport" [language]="'typescript'"></prism-block>
 
             <h4 class="no-bottom-margin">Add the following imports to <mark>data-parser.service.ts</mark> reducer imports</h4>
-            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="dataParserReducerImport">Copy</button>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); dataParserReducerImportCheck.checked = true;" [cbContent]="dataParserReducerImport">Copy</button>
+            <mat-checkbox #dataParserReducerImportCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
             <prism-block [code]="dataParserReducerImport" [language]="'typescript'"></prism-block>
 
+            <h4 class="no-bottom-margin">Add the following imports to <mark>data-parser.service.ts</mark> constructor</h4>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); dataParserConstructorCheck.checked = true;" [cbContent]="dataParserConstructor">Copy</button>
+            <mat-checkbox #dataParserConstructorCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
+            <prism-block [code]="dataParserConstructor" [language]="'typescript'"></prism-block>
+
             <h4 class="no-bottom-margin">Add the following lines to <mark>data-parser.service.ts</mark> parse method</h4>
-            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="dataParser">Copy</button>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); dataParserCheck.checked = true;" [cbContent]="dataParser">Copy</button>
+            <mat-checkbox #dataParserCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
             <prism-block [code]="dataParser" [language]="'typescript'"></prism-block>
         </div>
 
         <div *ngIf="reducerIndex1 !== null">
             <h4 class="no-bottom-margin">Add the following line to <mark>reducers.index.ts</mark> {{entity?'Entity':'DataTable'}}State interface</h4>
-            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="reducerIndex1">Copy</button>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); reducerIndex1Check.checked = true;" [cbContent]="reducerIndex1">Copy</button>
+            <mat-checkbox #reducerIndex1Check style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
             <prism-block [code]="reducerIndex1" [language]="'typescript'"></prism-block>
         </div>
 
         <div *ngIf="reducerIndex2 !== null">
             <h4 class="no-bottom-margin">Add the following line to <mark>reducers.index.ts</mark> {{entity?'entity':'dataTable'}}Reducers const</h4>
-            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="reducerIndex2">Copy</button>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); reducerIndex2Check.checked = true;" [cbContent]="reducerIndex2">Copy</button>
+            <mat-checkbox #reducerIndex2Check style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
             <prism-block [code]="reducerIndex2" [language]="'typescript'"></prism-block>
         </div>
 
         <div *ngIf="effectsIndex !== null">
             <h4 class="no-bottom-margin">Add the following line to <mark>effects.index.ts</mark> effects const</h4>
-            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="effectsIndex">Copy</button>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); effectsIndexCheck.checked = true;" [cbContent]="effectsIndex">Copy</button>
+            <mat-checkbox #effectsIndexCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
             <prism-block [code]="effectsIndex" [language]="'typescript'"></prism-block>
         </div>
 
         <div *ngIf="storeModule !== null">
             <h4 class="no-bottom-margin">Add the following line to <mark>store.module.ts</mark> providers array</h4>
-            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="storeModule">Copy</button>
+            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); storeModuleCheck.checked = true;" [cbContent]="storeModule">Copy</button>
+            <mat-checkbox #storeModuleCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
             <prism-block [code]="storeModule" [language]="'typescript'"></prism-block>
         </div>
 
     </mat-tab>
     <mat-tab label="{{actionsTitle}}" *ngIf="actions!==null">
-        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="actions">Copy</button>
+        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); actionsCheck.checked = true;" [cbContent]="actions">Copy</button>
+        <mat-checkbox #actionsCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
         <prism-block [code]="actions" [language]="'typescript'"></prism-block>
     </mat-tab>
     <mat-tab label="{{reducerTitle}}" *ngIf="reducer!==null">
-        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="reducer">Copy</button>
+        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); reducerCheck.checked = true;" [cbContent]="reducer">Copy</button>
+        <mat-checkbox #reducerCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
         <prism-block [code]="reducer" [language]="'typescript'"></prism-block>
     </mat-tab>
     <mat-tab label="{{indexTitle}}" *ngIf="index!==null">
-        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="index">Copy</button>
+        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); indexCheck.checked = true;" [cbContent]="index">Copy</button>
+        <mat-checkbox #indexCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
         <prism-block [code]="index" [language]="'typescript'"></prism-block>
     </mat-tab>
     <mat-tab label="{{effectsTitle}}" *ngIf="effects!==null">
-        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="effects">Copy</button>
+        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); effectsCheck.checked = true;" [cbContent]="effects">Copy</button>
+        <mat-checkbox #effectsCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
         <prism-block [code]="effects" [language]="'typescript'"></prism-block>
     </mat-tab>
     <mat-tab label="{{serviceTitle}}" *ngIf="service!==null">
-        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="service">Copy</button>
+        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); serviceCheck.checked = true;" [cbContent]="service">Copy</button>
+        <mat-checkbox #serviceCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
         <prism-block [code]="service" [language]="'typescript'"></prism-block>
     </mat-tab>
     <mat-tab label="{{modelTitle}}" *ngIf="model!==null">
-        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar()" [cbContent]="model">Copy</button>
+        <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); modelCheck.checked = true;" [cbContent]="model">Copy</button>
+        <mat-checkbox #modelCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
         <prism-block [code]="model" [language]="'typescript'"></prism-block>
     </mat-tab>
 </mat-tab-group>

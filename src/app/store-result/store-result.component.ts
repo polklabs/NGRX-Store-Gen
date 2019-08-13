@@ -36,6 +36,7 @@ export class StoreResultComponent implements OnInit, OnChanges {
   dataParser: string = '';
   dataParserActionImport: string = '';
   dataParserReducerImport: string = '';
+  dataParserConstructor: string = '';
   effectsIndex: string = '';
   reducerIndex1: string = '';
   reducerIndex2: string = '';
@@ -58,6 +59,7 @@ export class StoreResultComponent implements OnInit, OnChanges {
     this.dataParser = null;
     this.dataParserActionImport = null;
     this.dataParserReducerImport = null;
+    this.dataParserConstructor = null;
     this.effectsIndex = null; 
     this.reducerIndex1 = null;
     this.reducerIndex2 = null;
@@ -244,7 +246,7 @@ export type ${upperName}Actions =${this.load?
     let snakeCase = this.camelToUnderscore(upperName);
     this.reducerTitle = `${snakeCase}.reducer.ts`;
     this.reducerIndex1 = `${fullNameLower}: ${fullNameUpper}State;`;
-    this.reducerIndex2 = `${fullNameLower}: ${fullNameLower}Reducer`;
+    this.reducerIndex2 = `${fullNameLower}: ${fullNameLower}Reducer,`;
     this.reducer =
     `import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { ${upperName}Actions, ${upperName}ActionTypes } from './${snakeCase}.actions';
@@ -391,12 +393,13 @@ export class ${upperName}Effects {
   this.${fullNameLower}Store.dispatch(new ${fullNameLower}Actions.${this.addAll?'AddAll':'UpsertMany'}(this.parse${this.entity?'Entity':'DataTable'}(payload.${fullNameUpper})));
 }`;
     this.dataParserActionImport = `import * as ${fullNameLower}Actions from './${this.entity?'entity':'data-table'}/${snakeCase}/${snakeCase}.actions';`;
-    this.dataParserReducerImport = `import { ${fullNameUpper}State } from './${this.entity?'entity':'data-table'}/${snakeCase}/${snakeCase}.reducer';`
+    this.dataParserReducerImport = `import { ${fullNameUpper}State } from './${this.entity?'entity':'data-table'}/${snakeCase}/${snakeCase}.reducer';`;
+    this.dataParserConstructor = `private ${fullNameLower}Store: Store<${fullNameUpper}State>,`;
     if(!this.load && !this.save && !this.delete){
       this.service = '//No service needed';
       return;
     }
-    this.storeModule = `${upperName}Service,`;
+    this.storeModule = `${upperName}DataService,`;
     this.service = 
     `import { Injectable } from '@angular/core';
 import { DataService } from 'src/app/core/service/data.service';
