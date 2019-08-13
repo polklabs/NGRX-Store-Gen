@@ -122,7 +122,12 @@ export const {
     selectTotal: getTotal,
 } = ${fullNameLower}Adapter.getSelectors(get${upperName}State);
 
-export const get${upperName}ById = (id: string) => createSelector(getEntities, (entities) => entities[id]);
+export const get${upperName}ById = (id: string) => createSelector(getEntities, (entities) => entities[id]);${this.load?
+`
+export const isLoading = createSelector(get${upperName}State, (s) => s.loading);
+export const hasError = createSelector(get${upperName}State, (s) => s.error);`:''}${this.save?
+`
+export const saveSuccess = createSelector(getEmployeeCertificationState, (s) => s.saveSuccess);`:''}
 
 /**
  * Add Custom selectors here
