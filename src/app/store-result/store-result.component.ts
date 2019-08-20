@@ -35,7 +35,6 @@ export class StoreResultComponent implements OnInit, OnChanges {
 
   dataParser: string = '';
   dataParserActionImport: string = '';
-  dataParserReducerImport: string = '';
   dataParserConstructor: string = '';
   effectsIndex: string = '';
   reducerIndex1: string = '';
@@ -58,7 +57,6 @@ export class StoreResultComponent implements OnInit, OnChanges {
     this.model = null;
     this.dataParser = null;
     this.dataParserActionImport = null;
-    this.dataParserReducerImport = null;
     this.dataParserConstructor = null;
     this.effectsIndex = null; 
     this.reducerIndex1 = null;
@@ -111,10 +109,10 @@ export class StoreResultComponent implements OnInit, OnChanges {
     this.index =
       `import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ${fullNameLower}Adapter } from './${snakeCase}.reducer';
-import { EntityState } from '../../reducers.index';
+import { ${this.entity?'Entity':'DataTable'}State } from '../../reducers.index';
 
-export const selectEntityModuleState = createFeatureSelector<EntityState>('entities');
-export const get${upperName}State = createSelector( selectEntityModuleState, (s: EntityState) => s.${fullNameLower});
+export const select${this.entity?'Entity':'DataTable'}ModuleState = createFeatureSelector<${this.entity?'Entity':'DataTable'}State>('${this.entity?'entities':'dataTables'}');
+export const get${upperName}State = createSelector( select${this.entity?'Entity':'DataTable'}ModuleState, (s: ${this.entity?'Entity':'DataTable'}State) => s.${fullNameLower});
 export const {
     selectIds: getIds,
     selectEntities: getEntities,
@@ -127,7 +125,7 @@ export const get${upperName}ById = (id: string) => createSelector(getEntities, (
 export const isLoading = createSelector(get${upperName}State, (s) => s.loading);
 export const hasError = createSelector(get${upperName}State, (s) => s.error);`:''}${this.save?
 `
-export const saveSuccess = createSelector(getEmployeeCertificationState, (s) => s.saveSuccess);`:''}
+export const saveSuccess = createSelector(get${upperName}State, (s) => s.saveSuccess);`:''}
 
 /**
  * Add Custom selectors here
@@ -394,11 +392,10 @@ export class ${upperName}Effects {
     let snakeCaseFull = this.camelToUnderscore(fullNameUpper);
     let snakeCase = this.camelToUnderscore(upperName);
     this.serviceTitle = `${snakeCase}.service.ts`;
-    this.dataParser = `if (payload.${fullNameUpper}) {
-  this.${fullNameLower}Store.dispatch(new ${fullNameLower}Actions.${this.addAll?'AddAll':'UpsertMany'}(this.parse${this.entity?'Entity':'DataTable'}(payload.${fullNameUpper})));
+    this.dataParser = `private parse${fullNameUpper}(payload: any) {
+  this.${fullNameLower}Store.dispatch(new ${fullNameLower}Actions.${this.addAll?'AddAll':'UpsertMany'}(this.parseData(payload)));
 }`;
     this.dataParserActionImport = `import * as ${fullNameLower}Actions from './${this.entity?'entity':'data-table'}/${snakeCase}/${snakeCase}.actions';`;
-    this.dataParserReducerImport = `import { ${fullNameUpper}State } from './${this.entity?'entity':'data-table'}/${snakeCase}/${snakeCase}.reducer';`;
     this.dataParserConstructor = `private ${fullNameLower}Store: Store<${fullNameUpper}State>,`;
     if(!this.load && !this.save && !this.delete){
       this.service = '//No service needed';
@@ -409,7 +406,7 @@ export class ${upperName}Effects {
     `import { Injectable } from '@angular/core';
 import { DataService } from 'src/app/core/service/data.service';
 import { Observable, AsyncSubject } from 'rxjs';
-import { CallParameters } from 'src/app/shared/model/callparameters.model';
+import { Transaction } from 'src/app/shared/model/transaction.model';
 import { Message } from 'src/app/shared/model/message.model';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { ${fullNameUpper} } from 'src/app/store/model/${snakeCaseFull}.model';
@@ -426,9 +423,10 @@ export class ${upperName}DataService {
 
     public load${upperName}s(): Observable<boolean> {
         var result = new AsyncSubject<boolean>();
-        const cp = new CallParameters('', '', '');
+        const transaction = new Transaction();
+        //transaction.addOperation('TecNet${upperName}');
 
-        let sub = this.dataService.getData(cp).subscribe(
+        let sub = this.dataService.postTransaction(transaction).subscribe(
             (msg: Message) => {
 
                 result.next(msg.Success);
@@ -436,7 +434,7 @@ export class ${upperName}DataService {
                 sub.unsubscribe();
 
                 if(!msg.Success) {
-                    this.notificationService.popError(msg.Msg, 'Error loading ${lowerName}s', msg.InternalMsg);
+                    this.notificationService.popError(msg.Msg, 'Error loading ${upperName}s', msg.InternalMsg);
                     return;
                 }
 
@@ -448,12 +446,14 @@ export class ${upperName}DataService {
         return result;
     }`:''}${this.save?`
 
-    public save${upperName}(${fullNameLower}: ${fullNameUpper}): Observable<boolean> {
+    public save${upperName}(${lowerName}: ${fullNameUpper}): Observable<boolean> {
         var result = new AsyncSubject<boolean>();
-        const cp = new CallParameters('', '', '', JSON.stringify(${fullNameLower}));
         this.notificationService.popAction('Attempting to save ${lowerName}');
 
-        let sub = this.dataService.postData(cp).subscribe(
+        const transaction = new Transaction();
+        //transaction.addOperation('TecNet${upperName}').addAction('SaveTecNet${upperName}', ${lowerName}.${upperName}_ID, JSON.stringify(${lowerName}));
+
+        let sub = this.dataService.postTransaction(transaction).subscribe(
             (msg: Message) => {
 
                 result.next(msg.Success);
@@ -461,10 +461,10 @@ export class ${upperName}DataService {
                 sub.unsubscribe();
 
                 if(!msg.Success) {
-                    this.notificationService.popError(msg.Msg, 'Error saving ${lowerName}', msg.InternalMsg);
+                    this.notificationService.popError(msg.Msg, 'Error saving ${upperName}', msg.InternalMsg);
                     return;
                 } else {
-                    this.notificationService.popSuccess('', 'Successfully saved ${lowerName}');
+                    this.notificationService.popSuccess('', 'Successfully saved ${upperName}');
                 }
 
                 this.dataParserService.parse(msg);
@@ -476,10 +476,12 @@ export class ${upperName}DataService {
 
     public delete${upperName}(id: string): Observable<boolean> {
         var result = new AsyncSubject<boolean>();
-        const cp = new CallParameters('', '', '', id);
         this.notificationService.popAction('Attempting to delete ${lowerName}');
+
+        const transaction = new Transaction('');
+        //transaction.addOperation('TecNet${upperName}').addAction('DeleteTecNet${upperName}', id, id);
         
-        let sub = this.dataService.deleteData(cp).subscribe(
+        let sub = this.dataService.postTransaction(transaction).subscribe(
             (msg: Message) => {
 
                 result.next(msg.Success);
@@ -487,10 +489,10 @@ export class ${upperName}DataService {
                 sub.unsubscribe();
 
                 if(!msg.Success) {
-                    this.notificationService.popError(msg.Msg, 'Error deleting ${lowerName}', msg.InternalMsg);
+                    this.notificationService.popError(msg.Msg, 'Error deleting ${upperName}', msg.InternalMsg);
                     return;
                 } else {
-                    this.notificationService.popSuccess('', 'Successfully deleted ${lowerName}');
+                    this.notificationService.popSuccess('', 'Successfully deleted ${upperName}');
                 }
 
                 this.dataParserService.parse(msg);

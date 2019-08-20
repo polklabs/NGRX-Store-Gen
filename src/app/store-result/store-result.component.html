@@ -11,11 +11,6 @@
             <mat-checkbox #dataParserActionImportCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
             <prism-block [code]="dataParserActionImport" [language]="'typescript'"></prism-block>
 
-            <h4 class="no-bottom-margin">Add the following imports to <mark>data-parser.service.ts</mark> reducer imports</h4>
-            <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); dataParserReducerImportCheck.checked = true;" [cbContent]="dataParserReducerImport">Copy</button>
-            <mat-checkbox #dataParserReducerImportCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
-            <prism-block [code]="dataParserReducerImport" [language]="'typescript'"></prism-block>
-
             <h4 class="no-bottom-margin">Add the following imports to <mark>data-parser.service.ts</mark> constructor</h4>
             <button ngxClipboard mat-raised-button color="primary" (cbOnSuccess)="openSnackBar(); dataParserConstructorCheck.checked = true;" [cbContent]="dataParserConstructor">Copy</button>
             <mat-checkbox #dataParserConstructorCheck style="padding-left: 8px" [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
